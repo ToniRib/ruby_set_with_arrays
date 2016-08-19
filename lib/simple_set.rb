@@ -18,6 +18,12 @@ class SimpleSet
   end
 
   def insert(element)
-    @elements << element unless element.nil? || contains?(element)
+    @elements << element unless element_is_nil_or_already_in_set(element)
+  end
+
+  private
+
+  def element_is_nil_or_already_in_set(element)
+    element.nil? || contains?(element)
   end
 end
