@@ -22,7 +22,7 @@ class SimpleSet
   end
 
   def insert_multiple(new_elements)
-    @elements.concat(new_elements.uniq.compact)
+    @elements.concat(new_elements.uniq.compact).uniq!
   end
 
   private
