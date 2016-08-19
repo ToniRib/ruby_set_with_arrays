@@ -13,6 +13,10 @@ class SimpleSet
     elements.empty?
   end
 
+  def size
+    elements.size
+  end
+
   def insert(element)
     @elements << element unless element.nil? || contains?(element)
   end

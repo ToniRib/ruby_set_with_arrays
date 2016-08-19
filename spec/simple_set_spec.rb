@@ -103,4 +103,18 @@ RSpec.describe SimpleSet do
       expect(set.empty?).to be false
     end
   end
+
+  describe "#size" do
+    it "returns 0 if the set is empty" do
+      empty_set = SimpleSet.new
+
+      expect(empty_set.size).to eq 0
+    end
+
+    it "returns the total number of elements" do
+      set = SimpleSet.new([1])
+
+      expect(set.size).to eq 1
+    end
+  end
 end
