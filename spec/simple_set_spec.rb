@@ -1,4 +1,5 @@
 require "simple_set"
+require "pry"
 
 RSpec.describe SimpleSet do
   describe ".new" do
@@ -165,6 +166,53 @@ RSpec.describe SimpleSet do
 
         expect(set.elements).to match_array [1, 2]
       end
+    end
+  end
+
+  describe "#==" do
+    it "returns true if the two sets are both empty" do
+      empty_set = SimpleSet.new
+      another_empty_set = SimpleSet.new
+
+      equality = empty_set == another_empty_set
+
+      expect(equality).to be true
+    end
+
+    it "returns false if the sets are of different sizes" do
+      empty_set = SimpleSet.new
+      single_element_set = SimpleSet.new([1])
+
+      equality = empty_set == single_element_set
+
+      expect(equality).to be false
+    end
+
+    it "returns false if the sets contain different elements" do
+      set_with_element_one = SimpleSet.new([1])
+      set_with_element_two = SimpleSet.new([2])
+
+      equality = set_with_element_one == set_with_element_two
+
+      expect(equality).to be false
+    end
+
+    it "returns true if the sets contain the same elements in the same order" do
+      set_one = SimpleSet.new([1, 2])
+      set_two = SimpleSet.new([1, 2])
+
+      equality = set_one == set_two
+
+      expect(equality).to be true
+    end
+
+    it "returns true if the sets contain the same elements in a different order" do
+      set_one = SimpleSet.new([1, 2])
+      set_two = SimpleSet.new([2, 1])
+
+      equality = set_one == set_two
+
+      expect(equality).to be true
     end
   end
 end

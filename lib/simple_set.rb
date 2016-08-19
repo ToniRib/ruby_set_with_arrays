@@ -25,6 +25,10 @@ class SimpleSet
     @elements.concat(new_elements.uniq.compact).uniq!
   end
 
+  def ==(other_set)
+    size == other_set.size && elements.sort == other_set.elements.sort
+  end
+
   private
 
   def element_is_nil_or_already_in_set(element)
