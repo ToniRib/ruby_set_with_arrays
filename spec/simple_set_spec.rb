@@ -89,4 +89,18 @@ RSpec.describe SimpleSet do
       end
     end
   end
+
+  describe "#empty?" do
+    it "returns true if the set has no elements" do
+      empty_set = SimpleSet.new
+
+      expect(empty_set.empty?).to be true
+    end
+
+    it "returns false if the set has one or more elements" do
+      set = SimpleSet.new([1])
+
+      expect(set.empty?).to be false
+    end
+  end
 end

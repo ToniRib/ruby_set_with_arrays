@@ -9,6 +9,10 @@ class SimpleSet
     elements.include?(element)
   end
 
+  def empty?
+    elements.empty?
+  end
+
   def insert(element)
     @elements << element unless element.nil? || contains?(element)
   end
