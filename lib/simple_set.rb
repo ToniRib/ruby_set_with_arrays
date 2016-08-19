@@ -21,6 +21,10 @@ class SimpleSet
     @elements << element unless element_is_nil_or_already_in_set(element)
   end
 
+  def insert_multiple(new_elements)
+    @elements.concat(new_elements.uniq.compact)
+  end
+
   private
 
   def element_is_nil_or_already_in_set(element)

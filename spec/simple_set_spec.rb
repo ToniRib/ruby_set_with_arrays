@@ -75,7 +75,7 @@ RSpec.describe SimpleSet do
       it "adds the new element" do
         set.insert(2)
 
-        expect(set.elements).to include *[1, 2]
+        expect(set.elements).to match_array [1, 2]
       end
     end
 
@@ -115,6 +115,56 @@ RSpec.describe SimpleSet do
       set = SimpleSet.new([1])
 
       expect(set.size).to eq 1
+    end
+  end
+
+  describe "#insert_multiple" do
+    context "when the set is empty" do
+      let(:empty_set) { SimpleSet.new }
+
+      it "ignores nil elements" do
+        empty_set.insert_multiple([nil, 1])
+
+        expect(empty_set.elements).to eq [1]
+      end
+
+      it "adds the new elements" do
+        new_elements = [1, 2]
+
+        empty_set.insert_multiple(new_elements)
+
+        expect(empty_set.elements).to match_array new_elements
+      end
+
+      it "ignores duplicate new elements" do
+        new_elements = [1, 1]
+
+        empty_set.insert_multiple(new_elements)
+
+        expect(empty_set.elements).to eq [1]
+      end
+    end
+
+    context "when the set does not contain the added elements" do
+      let(:set) { SimpleSet.new([1]) }
+
+      it "adds the new elements" do
+        new_elements = [2, 3]
+
+        set.insert_multiple([2, 3])
+
+        expect(set.elements).to match_array [1, 2, 3]
+      end
+    end
+
+    context "when the set contains the added elements" do
+      let(:set) { SimpleSet.new([1]) }
+
+      it "only adds the elements not already in the set" do
+        set.insert_multiple([1, 2])
+
+        expect(set.elements).to match_array [1, 2]
+      end
     end
   end
 end
