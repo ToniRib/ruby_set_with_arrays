@@ -29,9 +29,17 @@ class SimpleSet
     size == other_set.size && elements.sort == other_set.elements.sort
   end
 
+  def subset?(other_set)
+    size <= other_set.size && other_set_contains_all_elements(other_set)
+  end
+
   private
 
   def element_is_nil_or_already_in_set(element)
     element.nil? || contains?(element)
+  end
+
+  def other_set_contains_all_elements(set)
+    elements.all? { |element| set.contains?(element) }
   end
 end

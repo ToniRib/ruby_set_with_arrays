@@ -215,4 +215,41 @@ RSpec.describe SimpleSet do
       expect(equality).to be true
     end
   end
+
+  describe "#subset?" do
+    it "returns true if both sets are empty" do
+      empty_set = SimpleSet.new
+      another_empty_set = SimpleSet.new
+
+      expect(empty_set.subset?(another_empty_set)).to be true
+    end
+
+    it "returns true if an empty set is passed to a set with elements" do
+      set = SimpleSet.new([1])
+      empty_set = SimpleSet.new
+
+      expect(empty_set.subset?(set)).to be true
+    end
+
+    it "returns false if a set with elements is passed to an empty set" do
+      set = SimpleSet.new([1])
+      empty_set = SimpleSet.new
+
+      expect(set.subset?(empty_set)).to be false
+    end
+
+    it "returns false if the set contains different elements" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2, 3])
+
+      expect(set.subset?(other_set)).to be false
+    end
+
+    it "returns true if the set contains all of the elements" do
+      subset = SimpleSet.new([2, 1])
+      set = SimpleSet.new([1, 2, 3])
+
+      expect(subset.subset?(set)).to be true
+    end
+  end
 end
