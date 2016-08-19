@@ -51,4 +51,42 @@ RSpec.describe SimpleSet do
       expect(response).to be true
     end
   end
+
+  describe "#insert" do
+    context "when the set is empty" do
+      let(:empty_set) { SimpleSet.new }
+
+      it "remains empty when nil is added" do
+        empty_set.insert(nil)
+
+        expect(empty_set.elements).to eq Array.new
+      end
+
+      it "adds the new element" do
+        empty_set.insert(1)
+
+        expect(empty_set.elements).to eq [1]
+      end
+    end
+
+    context "when the set does not contain the added element" do
+      let(:set) { SimpleSet.new([1]) }
+
+      it "adds the new element" do
+        set.insert(2)
+
+        expect(set.elements).to include *[1, 2]
+      end
+    end
+
+    context "when the set contains the added element" do
+      let(:set) { SimpleSet.new([1]) }
+
+      it "does not add the new element" do
+        set.insert(1)
+
+        expect(set.elements).to eq [1]
+      end
+    end
+  end
 end
