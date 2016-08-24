@@ -18,7 +18,7 @@ class SimpleSet
   end
 
   def insert(element)
-    @elements << element unless element_is_nil_or_already_in_set(element)
+    @elements << element unless element_should_not_be_added(element)
   end
 
   def insert_multiple(new_elements)
@@ -47,7 +47,7 @@ class SimpleSet
     size <= set.size
   end
 
-  def element_is_nil_or_already_in_set(element)
+  def element_should_not_be_added(element)
     element.nil? || contains?(element)
   end
 
