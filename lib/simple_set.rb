@@ -37,6 +37,10 @@ class SimpleSet
     SimpleSet.new((elements + other.elements).uniq)
   end
 
+  def intersection(other)
+    SimpleSet.new(elements & other.elements)
+  end
+
   private
 
   def equal_size(set)

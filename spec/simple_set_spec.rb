@@ -301,4 +301,62 @@ RSpec.describe SimpleSet do
       expect(union_result.elements).to match_array [1, 2, 3]
     end
   end
+
+  describe "#intersection" do
+    it "returns a new set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      intersection_result = set.intersection(other_set)
+
+      expect(intersection_result).to be_a SimpleSet
+      expect(intersection_result).to_not be set
+      expect(intersection_result).to_not be other_set
+    end
+
+    it "does not modify the original set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.intersection(other_set)
+
+      expect(set.elements).to match_array [1]
+    end
+
+    it "does not modify the passed in set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.intersection(other_set)
+
+      expect(other_set.elements).to match_array [2]
+    end
+
+    it "returns an empty set if both sets are empty" do
+      first_empty_set = SimpleSet.new
+      second_empty_set = SimpleSet.new
+
+      intersection_result = first_empty_set.intersection(second_empty_set)
+
+      expect(intersection_result).to be_empty
+    end
+
+    it "returns a new set with only elements that are in both sets" do
+      set = SimpleSet.new([1, 2])
+      other_set = SimpleSet.new([2, 3])
+
+      intersection_result = set.intersection(other_set)
+
+      expect(intersection_result.elements).to match_array [2]
+    end
+
+    it "returns an empty set if no elements are in both sets" do
+      set = SimpleSet.new([1, 2])
+      other_set = SimpleSet.new([3, 4])
+
+      intersection_result = set.intersection(other_set)
+
+      expect(intersection_result).to be_empty
+    end
+  end
 end
