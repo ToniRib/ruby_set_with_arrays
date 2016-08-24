@@ -34,15 +34,15 @@ class SimpleSet
   end
 
   def union(other)
-    SimpleSet.new((elements + other.elements).uniq)
+    new((elements + other.elements).uniq)
   end
 
   def intersection(other)
-    SimpleSet.new(elements & other.elements)
+    new(elements & other.elements)
   end
 
   def difference(other)
-    SimpleSet.new(elements - other.elements)
+    new(elements - other.elements)
   end
 
   private
@@ -65,5 +65,9 @@ class SimpleSet
 
   def contains_all_elements(set)
     elements.all? { |element| set.contains?(element) }
+  end
+
+  def new(elements)
+    self.class.new(elements)
   end
 end
