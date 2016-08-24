@@ -214,6 +214,14 @@ RSpec.describe SimpleSet do
 
       expect(equality).to be true
     end
+
+    it "raises an ArgumentError if the argument is not a SimpleSet" do
+      set = SimpleSet.new
+      array = [1]
+
+      expect { set == array }
+       .to raise_error(ArgumentError, "Argument must be a SimpleSet")
+    end
   end
 
   describe "#subset?" do
@@ -250,6 +258,14 @@ RSpec.describe SimpleSet do
       set = SimpleSet.new([1, 2, 3])
 
       expect(subset.subset?(set)).to be true
+    end
+
+    it "raises an ArgumentError if the argument is not a SimpleSet" do
+      set = SimpleSet.new
+      array = [1]
+
+      expect { set.subset?(array) }
+       .to raise_error(ArgumentError, "Argument must be a SimpleSet")
     end
   end
 
@@ -299,6 +315,14 @@ RSpec.describe SimpleSet do
       new_set = set.union(other_set)
 
       expect(new_set.elements).to match_array [1, 2, 3]
+    end
+
+    it "raises an ArgumentError if the argument is not a SimpleSet" do
+      set = SimpleSet.new
+      array = [1]
+
+      expect { set.union(array) }
+       .to raise_error(ArgumentError, "Argument must be a SimpleSet")
     end
   end
 
@@ -357,6 +381,14 @@ RSpec.describe SimpleSet do
       new_set = set.intersection(other_set)
 
       expect(new_set).to be_empty
+    end
+
+    it "raises an ArgumentError if the argument is not a SimpleSet" do
+      set = SimpleSet.new
+      array = [1]
+
+      expect { set.intersection(array) }
+       .to raise_error(ArgumentError, "Argument must be a SimpleSet")
     end
   end
 
@@ -424,6 +456,14 @@ RSpec.describe SimpleSet do
       new_set = other_set.difference(empty_set)
 
       expect(new_set.elements).to match_array other_set.elements
+    end
+
+    it "raises an ArgumentError if the argument is not a SimpleSet" do
+      set = SimpleSet.new
+      array = [1]
+
+      expect { set.difference(array) }
+       .to raise_error(ArgumentError, "Argument must be a SimpleSet")
     end
   end
 end
