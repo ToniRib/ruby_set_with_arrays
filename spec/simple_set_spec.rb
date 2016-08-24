@@ -258,11 +258,11 @@ RSpec.describe SimpleSet do
       set = SimpleSet.new([1])
       other_set = SimpleSet.new([2])
 
-      union_result = set.union(other_set)
+      new_set = set.union(other_set)
 
-      expect(union_result).to be_a SimpleSet
-      expect(union_result).to_not be set
-      expect(union_result).to_not be other_set
+      expect(new_set).to be_a SimpleSet
+      expect(new_set).to_not be set
+      expect(new_set).to_not be other_set
     end
 
     it "does not modify the original set" do
@@ -287,18 +287,18 @@ RSpec.describe SimpleSet do
       first_empty_set = SimpleSet.new
       second_empty_set = SimpleSet.new
 
-      union_result = first_empty_set.union(second_empty_set)
+      new_set = first_empty_set.union(second_empty_set)
 
-      expect(union_result).to be_empty
+      expect(new_set).to be_empty
     end
 
     it "returns a new set with non-duplicate elements from both sets" do
       set = SimpleSet.new([1, 2])
       other_set = SimpleSet.new([2, 3])
 
-      union_result = set.union(other_set)
+      new_set = set.union(other_set)
 
-      expect(union_result.elements).to match_array [1, 2, 3]
+      expect(new_set.elements).to match_array [1, 2, 3]
     end
   end
 
@@ -307,11 +307,11 @@ RSpec.describe SimpleSet do
       set = SimpleSet.new([1])
       other_set = SimpleSet.new([2])
 
-      intersection_result = set.intersection(other_set)
+      new_set = set.intersection(other_set)
 
-      expect(intersection_result).to be_a SimpleSet
-      expect(intersection_result).to_not be set
-      expect(intersection_result).to_not be other_set
+      expect(new_set).to be_a SimpleSet
+      expect(new_set).to_not be set
+      expect(new_set).to_not be other_set
     end
 
     it "does not modify the original set" do
@@ -336,27 +336,94 @@ RSpec.describe SimpleSet do
       first_empty_set = SimpleSet.new
       second_empty_set = SimpleSet.new
 
-      intersection_result = first_empty_set.intersection(second_empty_set)
+      new_set = first_empty_set.intersection(second_empty_set)
 
-      expect(intersection_result).to be_empty
+      expect(new_set).to be_empty
     end
 
     it "returns a new set with only elements that are in both sets" do
       set = SimpleSet.new([1, 2])
       other_set = SimpleSet.new([2, 3])
 
-      intersection_result = set.intersection(other_set)
+      new_set = set.intersection(other_set)
 
-      expect(intersection_result.elements).to match_array [2]
+      expect(new_set.elements).to match_array [2]
     end
 
     it "returns an empty set if no elements are in both sets" do
       set = SimpleSet.new([1, 2])
       other_set = SimpleSet.new([3, 4])
 
-      intersection_result = set.intersection(other_set)
+      new_set = set.intersection(other_set)
 
-      expect(intersection_result).to be_empty
+      expect(new_set).to be_empty
+    end
+  end
+
+  describe "#difference" do
+    it "returns a new set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      new_set = set.difference(other_set)
+
+      expect(new_set).to be_a SimpleSet
+      expect(new_set).to_not be set
+      expect(new_set).to_not be other_set
+    end
+
+    it "does not modify the original set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.difference(other_set)
+
+      expect(set.elements).to match_array [1]
+    end
+
+    it "does not modify the passed in set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.difference(other_set)
+
+      expect(other_set.elements).to match_array [2]
+    end
+
+    it "returns an empty set if both sets are empty" do
+      first_empty_set = SimpleSet.new
+      second_empty_set = SimpleSet.new
+
+      new_set = first_empty_set.difference(second_empty_set)
+
+      expect(new_set).to be_empty
+    end
+
+    it "returns a new set with only unique elements from the original set" do
+      set = SimpleSet.new([1, 2])
+      other_set = SimpleSet.new([2, 3])
+
+      new_set = set.difference(other_set)
+
+      expect(new_set.elements).to match_array [1]
+    end
+
+    it "returns an empty set called on an empty set" do
+      empty_set = SimpleSet.new
+      other_set = SimpleSet.new([3, 4])
+
+      new_set = empty_set.difference(other_set)
+
+      expect(new_set).to be_empty
+    end
+
+    it "returns a set with the same elements if called with an empty set" do
+      empty_set = SimpleSet.new
+      other_set = SimpleSet.new([3, 4])
+
+      new_set = other_set.difference(empty_set)
+
+      expect(new_set.elements).to match_array other_set.elements
     end
   end
 end

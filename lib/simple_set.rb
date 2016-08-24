@@ -41,6 +41,10 @@ class SimpleSet
     SimpleSet.new(elements & other.elements)
   end
 
+  def difference(other)
+    SimpleSet.new(elements - other.elements)
+  end
+
   private
 
   def equal_size(set)
