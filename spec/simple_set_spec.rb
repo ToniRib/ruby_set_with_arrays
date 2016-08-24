@@ -252,4 +252,53 @@ RSpec.describe SimpleSet do
       expect(subset.subset?(set)).to be true
     end
   end
+
+  describe "#union" do
+    it "returns a new set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      union_result = set.union(other_set)
+
+      expect(union_result).to be_a SimpleSet
+      expect(union_result).to_not be set
+      expect(union_result).to_not be other_set
+    end
+
+    it "does not modify the original set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.union(other_set)
+
+      expect(set.elements).to match_array [1]
+    end
+
+    it "does not modify the passed in set" do
+      set = SimpleSet.new([1])
+      other_set = SimpleSet.new([2])
+
+      set.union(other_set)
+
+      expect(other_set.elements).to match_array [2]
+    end
+
+    it "returns an empty set if both sets are empty" do
+      first_empty_set = SimpleSet.new
+      second_empty_set = SimpleSet.new
+
+      union_result = first_empty_set.union(second_empty_set)
+
+      expect(union_result).to be_empty
+    end
+
+    it "returns a new set with non-duplicate elements from both sets" do
+      set = SimpleSet.new([1, 2])
+      other_set = SimpleSet.new([2, 3])
+
+      union_result = set.union(other_set)
+
+      expect(union_result.elements).to match_array [1, 2, 3]
+    end
+  end
 end

@@ -29,8 +29,12 @@ class SimpleSet
     equal_size(other) && sorted_elements_match(other)
   end
 
-  def subset?(other_set)
-    same_size_or_smaller(other_set) && contains_all_elements(other_set)
+  def subset?(other)
+    same_size_or_smaller(other) && contains_all_elements(other)
+  end
+
+  def union(other)
+    SimpleSet.new((elements + other.elements).uniq)
   end
 
   private
